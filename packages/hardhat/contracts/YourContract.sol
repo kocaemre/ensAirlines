@@ -1,87 +1,120 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-// Useful for debugging. Remove when deploying to a live network.
-import "hardhat/console.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-// Use openzeppelin to inherit battle-tested implementations (ERC20, ERC721, etc)
-// import "@openzeppelin/contracts/access/Ownable.sol";
+contract YourContract is Ownable {
 
-/**
- * A smart contract that allows changing a state variable of the contract and tracking the changes
- * It also allows the owner to withdraw the Ether in the contract
- * @author BuidlGuidl
- */
-contract YourContract {
-	// State Variables
-	address public immutable owner;
-	string public greeting = "Building Unstoppable Apps!!!";
-	bool public premium = false;
-	uint256 public totalCounter = 0;
-	mapping(address => uint) public userGreetingCounter;
+    uint256 public id;
 
-	// Events: a way to emit log statements from smart contract that can be listened to by external parties
-	event GreetingChange(
-		address indexed greetingSetter,
-		string newGreeting,
-		bool premium,
-		uint256 value
-	);
+    struct Ticket {
+        string flightCode;
+        uint256 id;
+        string from;
+        string to;
+        string date;
+        uint256 price;
+        uint256 seat;
+        uint256 availableSeats;
+        bool[] seats;
+        mapping(address => bool) isCheckIn;
+		mapping(address => bool) isItSold;
+		mapping(address => uint256) ownerSeat;
+    }
 
-	// Constructor: Called once on contract deployment
-	// Check packages/hardhat/deploy/00_deploy_your_contract.ts
-	constructor(address _owner) {
-		owner = _owner;
+    Ticket[] public tickets;
+
+	event buyTicketEvent(string _flightCode,uint256 _ticketId , string _from, string _to, string _date, uint256 _price, uint256 _seat, address _user, uint256 _luggageWeight);
+	event checkInEvent(string _flightCode,uint256 _ticketId , string _from, string _to, string _date, uint256 _price, uint256 _seatNumber, address _user, uint256 _luggageWeight);
+    event createTicketEvent(string _flightCode,uint256 _ticketId , string _from, string _to, string _date, uint256 _price, uint256 _seat);
+    
+
+    
+
+    function createTicket( //koltuk sayısı az olacak
+        string memory _flightCode,
+        string memory _from,
+        string memory _to,
+        string memory _date,
+        uint256 _price,
+        uint256 _seat
+    ) public onlyOwner {
+        uint256 _availableSeats = _seat;
+
+        bool[] memory _array = new bool[](_seat);
+
+       
+        tickets.push();
+
+        Ticket storage newTicket = tickets[tickets.length - 1];
+        newTicket.flightCode = _flightCode;
+        id = tickets.length-1;
+        newTicket.id = id;
+        newTicket.from = _from;
+        newTicket.to = _to;
+        newTicket.date = _date;
+        newTicket.price = _price;
+        newTicket.seat = _seat;
+        newTicket.availableSeats = _availableSeats;
+        newTicket.seats = _array;
+
+        emit createTicketEvent(_flightCode, id, _from, _to, _date, _price, _seat);
+        
+
+        
+    }
+
+	function getSeatMap(uint256 _ticketId) public view returns (bool[] memory) {
+		return tickets[_ticketId].seats;
 	}
 
-	// Modifier: used to define a set of rules that must be met before or after a function is executed
-	// Check the withdraw() function
-	modifier isOwner() {
-		// msg.sender: predefined variable that represents address of the account that called the current function
-		require(msg.sender == owner, "Not the Owner");
-		_;
+	function isCheckedIn(uint256 _ticketId, address _user) public view returns (bool) {
+		return tickets[_ticketId].isCheckIn[_user];
 	}
 
-	/**
-	 * Function that allows anyone to change the state variable "greeting" of the contract and increase the counters
-	 *
-	 * @param _newGreeting (string memory) - new greeting to save on the contract
-	 */
-	function setGreeting(string memory _newGreeting) public payable {
-		// Print data to the hardhat chain console. Remove when deploying to a live network.
-		console.log(
-			"Setting new greeting '%s' from %s",
-			_newGreeting,
-			msg.sender
-		);
 
-		// Change state variables
-		greeting = _newGreeting;
-		totalCounter += 1;
-		userGreetingCounter[msg.sender] += 1;
+	function buyTicket(uint256 _ticketId) public payable {
+		require(tickets[_ticketId].availableSeats > 0, "No available seats");
+		require(msg.value >= tickets[_ticketId].price, "Insufficient funds");
+		require(!tickets[_ticketId].isItSold[msg.sender], "Already bought a ticket");
+        uint256 luggageWeight = 10;
 
-		// msg.value: built-in global variable that represents the amount of ether sent with the transaction
-		if (msg.value > 0) {
-			premium = true;
-		} else {
-			premium = false;
-		}
+        if(msg.value >= tickets[_ticketId].price/100*110){
+            luggageWeight = 20;}
 
-		// emit: keyword used to trigger an event
-		emit GreetingChange(msg.sender, _newGreeting, msg.value > 0, msg.value);
+		tickets[_ticketId].availableSeats--;
+		tickets[_ticketId].isItSold[msg.sender] = true;
+
+        emit buyTicketEvent(tickets[_ticketId].flightCode, tickets[_ticketId].id, tickets[_ticketId].from, tickets[_ticketId].to, tickets[_ticketId].date, tickets[_ticketId].price, tickets[_ticketId].seat, msg.sender, luggageWeight);
+		
 	}
 
-	/**
-	 * Function that allows the owner to withdraw all the Ether in the contract
-	 * The function can only be called by the owner of the contract as defined by the isOwner modifier
-	 */
-	function withdraw() public isOwner {
-		(bool success, ) = owner.call{ value: address(this).balance }("");
-		require(success, "Failed to send Ether");
+	function checkIn(uint256 _ticketId, uint256 _seat) public {
+		require(tickets[_ticketId].isItSold[msg.sender], "You have not bought a ticket");
+		require(!tickets[_ticketId].isCheckIn[msg.sender], "You have already checked in");
+		require(!tickets[_ticketId].seats[_seat], "Seat is not available");
+
+
+		tickets[_ticketId].seats[_seat] = true;
+		tickets[_ticketId].isCheckIn[msg.sender] = true;
+		tickets[_ticketId].ownerSeat[msg.sender] = _seat;
+
+        emit checkInEvent(tickets[_ticketId].flightCode, tickets[_ticketId].id, tickets[_ticketId].from, tickets[_ticketId].to, tickets[_ticketId].date, tickets[_ticketId].price, _seat, msg.sender, 12);
+		
 	}
 
-	/**
-	 * Function that allows the contract to receive ETH
-	 */
-	receive() external payable {}
+    function withdraw() public onlyOwner{
+        // Call returns a boolean value indicating success or failure.
+        // This is the current recommended method to use.
+        (bool sent, ) = address(msg.sender).call{value: address(this).balance }("");
+        require(sent, "Failed to send Ether");
+    }
+
+	
+
+
+
+
+
+	
 }

@@ -4,6 +4,849 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  31337: {
+    YourContract: {
+      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_luggageWeight",
+              type: "uint256",
+            },
+          ],
+          name: "buyTicketEvent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_seatNumber",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_luggageWeight",
+              type: "uint256",
+            },
+          ],
+          name: "checkInEvent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+          ],
+          name: "createTicketEvent",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+          ],
+          name: "buyTicket",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+          ],
+          name: "checkIn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+          ],
+          name: "createTicket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+          ],
+          name: "getSeatMap",
+          outputs: [
+            {
+              internalType: "bool[]",
+              name: "",
+              type: "bool[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "id",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+          ],
+          name: "isCheckedIn",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tickets",
+          outputs: [
+            {
+              internalType: "string",
+              name: "flightCode",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "from",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "to",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "date",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "seat",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "availableSeats",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
+  },
+  11155111: {
+    YourContract: {
+      address: "0x551f19fb2DC23711259619563Fb3eaD418a57F0d",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_luggageWeight",
+              type: "uint256",
+            },
+          ],
+          name: "buyTicketEvent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_seatNumber",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_luggageWeight",
+              type: "uint256",
+            },
+          ],
+          name: "checkInEvent",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+          ],
+          name: "createTicketEvent",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+          ],
+          name: "buyTicket",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+          ],
+          name: "checkIn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_flightCode",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_from",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_to",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_date",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_seat",
+              type: "uint256",
+            },
+          ],
+          name: "createTicket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+          ],
+          name: "getSeatMap",
+          outputs: [
+            {
+              internalType: "bool[]",
+              name: "",
+              type: "bool[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "id",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_ticketId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "_user",
+              type: "address",
+            },
+          ],
+          name: "isCheckedIn",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tickets",
+          outputs: [
+            {
+              internalType: "string",
+              name: "flightCode",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "from",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "to",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "date",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "seat",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "availableSeats",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;
