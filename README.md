@@ -3,7 +3,7 @@
 
 ## Overview
 
-The ENS Airlines Ticket System is a web application that allows users to book flight tickets easily and efficiently. The application provides a user-friendly interface to search for available flights,complete bookings and checkin.
+This repository contains a Web3-based flight ticket booking application. Users can purchase tickets and perform check-ins using this decentralized application (dApp).
 
 ## Features
 
