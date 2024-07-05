@@ -5,12 +5,16 @@
 
 This repository contains a Web3-based flight ticket booking application. Users can purchase tickets and perform check-ins using this decentralized application (dApp).
 
+## Links
+
+### Live demo : https://ensairlines-kocaemre-emres-projects-ba2fe695.vercel.app/?_vercel_share=rbZr4IIY3cWVaE7XdWKxMGm6OXZhD6Le
+### Contract (Sepolia) : https://sepolia.etherscan.io/address/0x551f19fb2DC23711259619563Fb3eaD418a57F0d#code
+
 ## Features
 
 - **Ticket Purchase**: sers can browse available flights and purchase tickets using cryptocurrency.
 - **Check-In**: Users can check-in for their flights directly through the application.
 - **Blockchain Integration**: All transactions are recorded on the blockchain, ensuring transparency and security.
-
 
 ## Technologies Used
 
