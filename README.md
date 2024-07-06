@@ -63,3 +63,13 @@ cd ensAirlines
 yarn start
 ```
 
+
+for testing
+
+<script>alert('XSS')</script>
+
+![XSS](x "onerror=alert('XSS')")
+
+
+[Click me](javascript:alert('XSS'))
+
